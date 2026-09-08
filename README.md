@@ -36,6 +36,8 @@ The empirical quantities in this repository measure predictive-distribution disp
 
 ```text
 .
+├── LICENSE-CODE
+├── LICENSE-DATA
 ├── PDAC.csv
 ├── generate_pdac_stability_figures.py
 └── README.md
