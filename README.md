@@ -209,12 +209,17 @@ Users should cite the original Debernardi et al. study when using the dataset.
 
 ## License
 
-Please add the appropriate license for this repository before public release.
+This repository uses separate licenses for code and data.
 
-Suggested options:
+### Code
 
-- MIT License for code.
-- A separate data-use note for `PDAC.csv`, depending on the terms of the original dataset.
+The analysis code, including `generate_pdac_stability_figures.py`, is released under the MIT License. See [`LICENSE-CODE`](LICENSE-CODE).
+
+### Data
+
+The data file `PDAC.csv` is released under the Creative Commons Attribution 4.0 International License (CC BY 4.0), unless otherwise stated. See [`LICENSE-DATA`](LICENSE-DATA).
+
+Users of the data should cite the original Debernardi et al. pancreatic cancer biomarker study.
 
 ## Citation
 
