@@ -83,11 +83,11 @@ outputs/<run_id>/figures/
 | `theorem_points_long.csv` | Patient-level step-to-step stability diagnostics. |
 | `tables/aggregated_stability_tables.csv` | Aggregated values used for manuscript tables and plots. |
 | `tables/overall_stability_summary.csv` | Overall flip counts and tightness summaries. |
-| `figures/` | Manuscript-ready figures with filenames matching the LaTeX source. |
+| `figures/` | Manuscript-ready figures. |
 
 ## Manuscript Figures
 
-The script generates manuscript-ready figures with the filenames used in the LaTeX manuscript:
+The script generates the following manuscript-ready figures:
 
 ```text
 fig_theorem_ann.png
@@ -167,7 +167,6 @@ outputs/<run_id>/tables/
 - The same fitted scaler is used for all nested training prefixes within a repetition.
 - Predicted probabilities are clipped to `[1e-12, 1 - 1e-12]` before KL calculations.
 - Inequality checks use numerical tolerance `1e-10`.
-- The manuscript reports only the ANN/MLP and XGBoost models.
 
 ## Methodological Notes
 
