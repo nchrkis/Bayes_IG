@@ -203,9 +203,11 @@ The `violates` variable is not a statistical test of the theorem. For flipped Be
 
 ## Data Source
 
-The data derive from the publicly released dataset associated with:
+The data derive from the publicly released dataset associated with the study:
 
-> Debernardi et al., pancreatic cancer biomarker study.
+> Debernardi et al. (2020), A combination of urinary biomarker panel and PancRISK score for earlier detection of pancreatic cancer: A case–control study. PLoS Medicine, 17(12), e1003489.
+> 
+> https://doi.org/10.1371/journal.pmed.1003489.
 
 Users should cite the original Debernardi et al. study when using the dataset.
 
@@ -228,8 +230,9 @@ Users of the data should cite the original Debernardi et al. pancreatic cancer b
 If you use this repository, please cite the manuscript:
 
 ```text
-Christakis, N., and Drikakis, D.
+Christakis, N., and Drikakis, D. (2026)
 Information-Projection Certificates for Bayes-Decision Stability:
 Exact, Pairwise and Distribution-Free Bounds.
+Submitted to: International Journal of Approximate Reasoning
 ```
 ```
