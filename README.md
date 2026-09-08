@@ -1,4 +1,3 @@
-```markdown
 # PDAC Decision-Stability Certificates
 
 This repository contains the code and preprocessed data used for the computational illustration in the manuscript:
