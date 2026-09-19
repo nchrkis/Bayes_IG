@@ -1,36 +1,30 @@
-# PDAC Decision-Stability Certificates
+# Information-Cost Diagnostics for Threshold Instability
 
-This repository contains the code and preprocessed data used for the computational illustration in the manuscript:
+This repository contains the code, preprocessed data, and supplementary figures used for the computational study in the manuscript:
 
-**Information-Projection Certificates for Bayes-Decision Stability: Exact, Pairwise and Distribution-Free Bounds**
+**Information-Cost Diagnostics for Threshold Instability in Probabilistic Classifiers**  
+*Submitted to: Knowledge-Based Systems*
 
-The analysis demonstrates how information-projection stability diagnostics can be computed from probabilistic classifier outputs in a sparse binary decision-support workflow.
+The analysis demonstrates how information-cost diagnostics can be computed from standard probabilistic classifier outputs to measure threshold instability across multiple domains, models, and operating points. 
 
-The dataset is a preprocessed version of the publicly released pancreatic cancer biomarker data from Debernardi et al. The manuscript uses two probabilistic classifiers:
-
-1. An artificial neural network, implemented as a one-hidden-layer `MLPClassifier`.
-2. XGBoost, implemented as `XGBClassifier`.
+The study evaluates four probabilistic classifiers (Logistic Regression, Random Forest, XGBoost, and a one-hidden-layer Artificial Neural Network) across five public binary classification datasets.
 
 ## Overview
 
-The script `generate_pdac_stability_figures.py` runs a progressive Monte Carlo repeated-holdout experiment. For each repeated split, models are trained on nested training prefixes and evaluated on a fixed validation set.
+The script `generate_multidomain_stability_figures.py` runs a progressive Monte Carlo repeated-holdout experiment. For each repeated split, models are trained on nested training prefixes and evaluated on a fixed validation set. 
 
-Step-to-step changes in predicted probabilities are converted into Bernoulli KL displacement quantities:
+Step-to-step changes in predicted probabilities are converted into Bernoulli KL displacement quantities. For a reference probability $p_{\mathrm{prev}}$ and a new probability $p_{\mathrm{curr}}$ under a threshold $\tau$, the key diagnostic quantities are:
 
-```text
-IG_step = KL(Bern(p_curr) || Bern(p_prev))
-IG_min  = 2 * |p_prev - tau|^2
-```
+1. **Stepwise KL displacement**: $IG_{\mathrm{step}} = D_{\mathrm{KL}}((p_{\mathrm{curr}}) \parallel (p_{\mathrm{prev}}))$
+2. **Exact threshold boundary**: $C_{\mathrm{exact}} = D_{\mathrm{KL}}((\tau) \parallel (p_{\mathrm{prev}}))$
+3. **Pinsker certificate**: $C_{\mathrm{Pinsker}} = 2|p_{\mathrm{prev}} - \tau|^2$ (labeled as `IG_min` in the code)
 
-where `tau = 0.5` is the decision threshold.
+If a threshold decision flips between successive training sizes, the exact mathematical boundary implies that the displacement must exceed the exact boundary (and by extension, the conservative Pinsker certificate):
 
-If a threshold decision flips between successive training sizes, the deterministic Pinsker-based certificate implies:
+$IG_{\mathrm{step}} \ge C_{\mathrm{exact}} \ge C_{\mathrm{Pinsker}}$
 
-```text
-IG_step >= IG_min
-```
+*Note: The empirical quantities in this repository measure predictive-distribution displacement between successive fitted classifiers. They should not be interpreted as formal Bayesian posterior-to-prior information gain.*
 
-The empirical quantities in this repository measure predictive-distribution displacement between successive fitted classifiers. They should not be interpreted as formal Bayesian posterior-to-prior information gain.
 
 ## Repository Contents
 
