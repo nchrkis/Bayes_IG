@@ -50,18 +50,6 @@ $IG_{\mathrm{step}} \ge C_{\mathrm{exact}} \ge C_{\mathrm{Pinsker}}$
 
 The analytical outputs, summary CSV tables, and raw image files for the generated figures are not included in this repository. They will be generated locally in an outputs/ directory when you run the script.
 
-## Input Data
-
-### `PDAC.csv`
-
-` PDAC.csv` is the preprocessed PDAC biomarker dataset used in the manuscript.
-
-Expected format:
-
-- The final column is the binary target unless `TARGET_COL` is set in the script.
-- The target must be encoded as `0/1` or be convertible to `0/1`.
-- Feature columns should be numeric.
-- Missing values are dropped by the script.
 
 ## Outputs
 
@@ -89,68 +77,24 @@ The main output files are organized as follows:
 | `figures/supplementary/`	| The raw image files for the extra graphs. (These have been pre-compiled for convenience into the provided Supplementary_Information.pdf). |
 
 
-Interpretation of Diagnostics
-The key empirical quantities found in theorem_points_long.csv are:
+## Interpretation of Diagnostics
+The key empirical quantities found in `theorem_points_long.csv` are:
 
 
-Copy
-
-Download
-Variable	Meaning
-ig_step	Stepwise Bernoulli KL displacement.
-c_exact	Exact Bernoulli threshold boundary cost.
-ig_min	Conservative Pinsker threshold certificate.
-rho_exact	Exact boundary ratio (ig_step / c_exact).
-rho_pinsker	Pinsker boundary ratio (ig_step / ig_min).
-flip	Indicator that the threshold decision changed between successive training sizes.
-violates_exact	Numerical implementation check; must be 0 for all flipped points.
-
-### Output Descriptions
-
-| File or directory | Description |
+| Variable |	Meaning |
 |---|---|
-| `progressive_mc_results_summary.csv` | Repetition-level predictive and stability summaries. |
-| `theorem_points_long.csv` | Patient-level step-to-step stability diagnostics. |
-| `tables/aggregated_stability_tables.csv` | Aggregated values used for manuscript tables and plots. |
-| `tables/overall_stability_summary.csv` | Overall flip counts and tightness summaries. |
-| `figures/` | Manuscript-ready figures. |
+| ig_step |	Stepwise Bernoulli KL displacement. |
+| c_exact |	Exact Bernoulli threshold boundary cost. |
+| ig_min	| Conservative Pinsker threshold certificate. |
+| rho_exact	| Exact boundary ratio (ig_step / c_exact). |
+| rho_pinsker	| Pinsker boundary ratio (ig_step / ig_min). |
+| flip |	Indicator that the threshold decision changed between successive training sizes. |
+| violates_exact	| Numerical implementation check; must be 0 for all flipped points.
 
-## Manuscript Figures
 
-The script generates the following manuscript-ready figures:
 
-```text
-fig_theorem_ann.png
-fig_theorem_xgb.png
-fig_flip_rate_ann.png
-fig_flip_rate_xgb.png
-fig_ig_ann.png
-fig_ig_xgb.png
-fig_auroc_ann.png
-fig_auroc_xgb.png
-fig_auprc_ann.png
-fig_auprc_xgb.png
-fig_roc_ann.png
-fig_roc_xgb.png
-fig_precision_ann.png
-fig_precision_xgb.png
-fig_recall_ann.png
-fig_recall_xgb.png
-fig_specificity_ann.png
-fig_specificity_xgb.png
-fig_f1_ann.png
-fig_f1_xgb.png
-fig_brier_ann.png
-fig_brier_xgb.png
-```
 
-These files are saved in:
-
-```text
-outputs/<run_id>/figures/
-```
-
-## Reproducing the Figures
+## Reproducing the Figures and output csv files
 
 ### 1. Install Dependencies
 
@@ -162,32 +106,16 @@ pip install numpy pandas matplotlib seaborn scikit-learn xgboost
 
 ### 2. Place the Data File
 
-Ensure that `PDAC.csv` is in the same directory as:
+Ensure the dataset CSV files and the Python script are in the same working directory.
 
-```text
-generate_pdac_stability_figures.py
-```
 
 ### 3. Run the Script
 
 ```bash
-python generate_pdac_stability_figures.py
+python generate_multidomain_stability_figures.py
 ```
 
-### 4. Locate the Outputs
 
-After the script completes, the manuscript-ready figures will be saved under:
-
-```text
-outputs/<run_id>/figures/
-```
-
-The generated CSV files will be saved under:
-
-```text
-outputs/<run_id>/
-outputs/<run_id>/tables/
-```
 
 ## Reproducibility Notes
 
@@ -198,47 +126,13 @@ outputs/<run_id>/tables/
 - Predicted probabilities are clipped to `[1e-12, 1 - 1e-12]` before KL calculations.
 - Inequality checks use numerical tolerance `1e-10`.
 
-## Methodological Notes
-
-The workflow uses progressive training sizes:
-
-```text
-100, 110, 120, 130, 140
-```
-
-For each Monte Carlo repetition:
-
-1. The cohort is split into a training pool and validation set.
-2. A scaler is fitted on the training pool only.
-3. Nested training prefixes are constructed from the training pool.
-4. ANN and XGBoost models are trained at each prefix size.
-5. Predicted probabilities are evaluated on the same validation set.
-6. Step-to-step Bernoulli KL displacement is computed for each validation patient.
-7. Threshold flips and stability-certificate quantities are recorded.
-
-## Interpretation
-
-The key empirical quantities are:
-
-| Quantity | Meaning |
-|---|---|
-| `IG_step` | Bernoulli KL displacement between successive predicted probabilities. |
-| `IG_min` | Pinsker threshold certificate for a flip. |
-| `rho = IG_step / IG_min` | Margin-normalised displacement ratio. |
-| `flip` | Indicator that the threshold decision changed between successive training sizes. |
-| `violates` | Numerical implementation check for the deterministic flip inequality. |
-
-The `violates` variable is not a statistical test of the theorem. For flipped Bernoulli probabilities, the inequality is deterministic up to numerical tolerance.
-
 ## Data Source
 
-The data derive from the publicly released dataset associated with the study:
-
-> Debernardi et al. (2020), A combination of urinary biomarker panel and PancRISK score for earlier detection of pancreatic cancer: A case–control study. PLoS Medicine, 17(12), e1003489.
-> 
-> https://doi.org/10.1371/journal.pmed.1003489.
-
-Users should cite the original Debernardi et al. study when using the dataset.
+1. **PDAC:** Debernardi, S., et al. (2020). A combination of urinary biomarker panel and PancRISK score for earlier detection of pancreatic cancer: A case-control study. PLOS Medicine, 17(12), e1003489. DOI: 10.1371/journal.pmed.1003489
+2. **Credit Card Default:** Yeh, I.-C. (2009). Default of credit card clients. UCI Machine Learning Repository. DOI: 10.24432/C55S3H
+3. **Electrical Grid Stability:** Arzamasov, V. (2018). Electrical grid stability simulated data. UCI Machine Learning Repository. DOI: 10.24432/C5PG66
+4. **Machine Failure (AI4I 2020):** Matzka, S. (2020). AI4I 2020 predictive maintenance dataset. UCI Machine Learning Repository. DOI: 10.24432/C5HS5C
+5. **Banknote Authentication:** Lohweg, V. (2012). Banknote authentication. UCI Machine Learning Repository. DOI: 10.24432/C55P57
 
 ## License
 
@@ -246,11 +140,11 @@ This repository uses separate licenses for code and data.
 
 ### Code
 
-The analysis code, including `generate_pdac_stability_figures.py`, is released under the MIT License. See [`LICENSE-CODE`](LICENSE-CODE).
+The analysis code, including `generate_multidomain_stability_figures.py`, is released under the MIT License. See [`LICENSE-CODE`](LICENSE-CODE).
 
 ### Data
 
-The data file `PDAC.csv` is released under the Creative Commons Attribution 4.0 International License (CC BY 4.0), unless otherwise stated. See [`LICENSE-DATA`](LICENSE-DATA).
+TThe preprocessed data files are released under the Creative Commons Attribution 4.0 International License (CC BY 4.0), unless otherwise stated by their original authors.  See [`LICENSE-DATA`](LICENSE-DATA).
 
 Users of the data should cite the original Debernardi et al. pancreatic cancer biomarker study.
 
