@@ -104,7 +104,7 @@ Install the required Python packages:
 pip install numpy pandas matplotlib seaborn scikit-learn xgboost
 ```
 
-### 2. Place the Data File
+### 2. Place the Data Files
 
 Ensure the dataset CSV files and the Python script are in the same working directory.
 
@@ -127,6 +127,7 @@ python generate_multidomain_stability_figures.py
 - Inequality checks use numerical tolerance `1e-10`.
 
 ## Data Source
+The data derive from publicly released datasets. Users of this code and data should cite the original source studies and repositories:
 
 1. **PDAC:** Debernardi, S., et al. (2020). A combination of urinary biomarker panel and PancRISK score for earlier detection of pancreatic cancer: A case-control study. PLOS Medicine, 17(12), e1003489. DOI: 10.1371/journal.pmed.1003489
 2. **Credit Card Default:** Yeh, I.-C. (2009). Default of credit card clients. UCI Machine Learning Repository. DOI: 10.24432/C55S3H
@@ -144,9 +145,8 @@ The analysis code, including `generate_multidomain_stability_figures.py`, is rel
 
 ### Data
 
-TThe preprocessed data files are released under the Creative Commons Attribution 4.0 International License (CC BY 4.0), unless otherwise stated by their original authors.  See [`LICENSE-DATA`](LICENSE-DATA).
+The preprocessed data files are released under the Creative Commons Attribution 4.0 International License (CC BY 4.0), unless otherwise stated by their original authors.  See [`LICENSE-DATA`](LICENSE-DATA).
 
-Users of the data should cite the original Debernardi et al. pancreatic cancer biomarker study.
 
 ## Citation
 
@@ -154,8 +154,7 @@ If you use this repository, please cite the manuscript:
 
 ```text
 Christakis, N., and Drikakis, D. (2026)
-Information-Projection Certificates for Bayes-Decision Stability:
-Exact, Pairwise and Distribution-Free Bounds.
-Submitted to: International Journal of Approximate Reasoning
+Information-Cost Diagnostics for Threshold Instability in Probabilistic Classifiers.
+Submitted to: Knowledge-Based Systems
 ```
 ```
