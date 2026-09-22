@@ -556,7 +556,7 @@ def aggregate_progressive_summary(df_summary: pd.DataFrame) -> pd.DataFrame:
 
 def make_overall_stability_summary(df_points: pd.DataFrame) -> pd.DataFrame:
     """
-    Summarize all patient-level transition diagnostics by dataset, model and threshold.
+    Summarize all validation-instance transition diagnostics by dataset, model and threshold.
     """
     rows = []
 
@@ -1489,7 +1489,7 @@ def main() -> None:
     print(f"Output directory: {BASE_DIR.resolve()}")
     print(f"Dataset summary: {dataset_summary_path}")
     print(f"Progressive summary: {summary_path}")
-    print(f"Patient-level stability data: {theorem_path}")
+    print(f"Validation-instance  stability data: {theorem_path}")
     print(f"Aggregated progressive summary: {agg_path}")
     print(f"Overall stability summary: {overall_path}")
     print(f"Final performance summary: {final_perf_path}")
